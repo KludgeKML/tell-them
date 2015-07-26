@@ -1,0 +1,110 @@
+=positionable-box($distance)
+	position: fixed
+	bottom: $distance
+	right: $distance
+	border-radius: 1em
+	box-sizing: border-box
+	box-shadow: 0.1em 0.1em 0.5em rgba(128,64,0,0.3)
+	background-color: orange
+	&.top-right
+		top: $distance
+		right: $distance
+		bottom: initial
+		left: initial
+	&.top-left
+		top: $distance
+		left: $distance
+		bottom: initial
+		right: initial
+	&.bottom-right
+		bottom: $distance
+		right: $distance
+		top: initial
+		left: initial
+	&.bottom-left
+		bottom: $distance
+		left: $distance
+		top: initial
+		right: initial
+
+$pad: 2%
+
+#tell-them-box
+	+positionable-box($pad)
+	width: 5%
+	padding-top: 1em
+	cursor: pointer
+	box-shadow: 0.2em 0.2em 1em rgba(128,64,0,0.8)
+	-webkit-transition: width 0.1s height 0.1s
+	transition: width 0.1s height 0.1s
+	text-align: center
+	&:before
+		content: "?"
+		color: white
+		font-size: 32pt
+		font-weight: bold
+	.contents
+		display: none
+		.controls
+			display: none
+			position: relative
+			margin: $pad
+			border-radius: 1em
+			padding: $pad
+			background-color: white
+			.corners
+				position: relative
+				width: 2em
+				height: 2em
+				button
+					position: absolute
+					width: 50%
+					height: 50%
+					border: 1px solid black
+					background-color: white
+					cursor: pointer
+					&.current
+						background-color: black
+					&:hover
+						background-color: gray
+					&[data-target-corner="top-left"]
+						top: 0
+						left: 0
+					&[data-target-corner="top-right"]
+						top: 0
+						right: 0
+					&[data-target-corner="bottom-left"]
+						bottom: 0
+						left: 0
+					&[data-target-corner="bottom-right"]
+						bottom: 0
+						right: 0
+			.pin
+				position: absolute
+				top: 40%
+				right: $pad
+				border-radius: $pad
+				background-color: white
+				color: black
+				cursor: pointer
+		dl
+			text-align: left
+			margin: $pad
+			border-radius: 1em
+			padding: $pad
+			background-color: white
+			dt
+				font-weight: bold
+	&:hover, &.pinned
+		cursor: default
+		width: 50%
+		&:before
+			display: none
+		.contents
+			display: block
+	&.pinned
+		.contents
+			.controls
+				.pin
+					background-color: black
+					color: white
