@@ -1,41 +1,80 @@
 load_prefs = ->
   prefs = JSON.parse(localStorage.getItem("tellThemPrefs"))
   return if !prefs?
-  $('#tell-them-box').removeClass('pinned')
+  remove_class(find('#tell-them-box'), 'pinned')
   if prefs.pinned == 1
-  	$('#tell-them-box').addClass('pinned')
-  	$('#tell-them-box .controls .pin').text('Unpin')
-  $('#tell-them-box').addClass(prefs.corner)
-  $('#tell-them-box .controls .corners button').removeClass('current')
-  $('#tell-them-box .controls .corners button[data-target-corner=' + prefs.corner +  ']').addClass('current')
+    add_class(find('#tell-them-box'), 'pinned')
+    set_text(find('#tell-them-box .controls .pin'), 'Unpin')
+  add_class(find('#tell-them-box'), prefs.corner)
+  remove_class(find('#tell-them-box .controls .corners button'), 'current')
+  add_class(find('#tell-them-box .controls .corners button[data-target-corner=' + prefs.corner +  ']'), 'current')
 
 save_prefs = ->
   pin_value = 0
-  if $('#tell-them-box').hasClass('pinned')
-  	pin_value = 1
+  if has_class(find('#tell-them-box'), 'pinned')
+    pin_value = 1
   prefs = {
-  	corner: $('#tell-them-box .controls .corners button.current').data('target-corner'),
-  	pinned: pin_value
+    corner: data(find('#tell-them-box .controls .corners button.current'), 'target-corner'),
+    pinned: pin_value
   }
   localStorage.setItem("tellThemPrefs", JSON.stringify(prefs))
 
 change_corners = (e) ->
-  $('#tell-them-box').removeClass('top-left top-right bottom-left bottom-right')
-  $('#tell-them-box .controls .corners button').removeClass('current')
-  $(this).addClass('current')
-  $('#tell-them-box').addClass($(this).data('target-corner'))
+  remove_class(find('#tell-them-box'), 'top-left')
+  remove_class(find('#tell-them-box'), 'top-right')
+  remove_class(find('#tell-them-box'), 'bottom-left')
+  remove_class(find('#tell-them-box'), 'bottom-right')
+  remove_class(find('#tell-them-box .controls .corners button'), 'current')
+  add_class(this, 'current')
+  add_class(find('#tell-them-box'), data(this, 'target-corner'))
   save_prefs()
 
 toggle_pin = (e) ->
-  $('#tell-them-box').toggleClass('pinned')
-  if $('#tell-them-box').hasClass('pinned')
-  	$('#tell-them-box .controls .pin').text('Unpin')
+  toggle_class(find('#tell-them-box'), 'pinned')
+  if has_class(find('#tell-them-box'), 'pinned')
+    set_text(find('#tell-them-box .controls .pin'), 'Unpin')
   else
-  	$('#tell-them-box .controls .pin').text('Pin')
+    set_text(find('#tell-them-box .controls .pin'), 'Pin')
   save_prefs()
 
-$ ->
+add_class = (el, className) ->
+  if el.classList
+    el.classList.add(className)
+  else
+    el.className += ' ' + className
+
+data = (el, key) ->
+  el.getAttribute('data-' + key);
+
+find = (selector) ->
+  document.querySelectorAll(selector)
+
+has_class = (el, className) ->
+  if el.classList
+    el.classList.contains(className)
+  else
+    new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className)
+
+remove_class = (el, className) ->
+  if el.classList
+    el.classList.remove(className)
+  else
+    el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
+
+toggle_class = (el, className) ->
+  if el.classList
+    el.classList.toggle(className)
+  else
+    classes = el.className.split(' ')
+    existingIndex = classes.indexOf(className)
+  if existingIndex >= 0
+    classes.splice(existingIndex, 1)
+  else
+    classes.push(className)
+  el.className = classes.join(' ')
+
+->
   load_prefs()
-  $('#tell-them-box .controls .corners button').on 'click', change_corners
-  $('#tell-them-box .controls .pin').on 'click', toggle_pin
-  $('#tell-them-box .controls').css('display', 'block')
+  find('#tell-them-box .controls .corners button').addEventListener('click', change_corners)
+  find('#tell-them-box .controls .pin').addEventListener('click', toggle_pin)
+  find('#tell-them-box .controls').style.display = 'block'
