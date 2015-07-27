@@ -31,6 +31,7 @@ $pad: 2%
 
 #tell-them-box
 	+positionable-box($pad)
+	z-index: 1000
 	width: 5%
 	padding-top: 1em
 	cursor: pointer
@@ -98,6 +99,7 @@ $pad: 2%
 	&:hover, &.pinned
 		cursor: default
 		width: 50%
+		padding-top: 0
 		&:before
 			display: none
 		.contents
