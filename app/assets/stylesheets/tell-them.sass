@@ -59,9 +59,11 @@ $pad: 2%
 				height: 2em
 				button
 					position: absolute
+					box-sizing: border-box
 					width: 50%
 					height: 50%
 					border: 1px solid black
+					padding: 0 0
 					background-color: white
 					cursor: pointer
 					&.current
@@ -85,16 +87,17 @@ $pad: 2%
 				top: 40%
 				right: $pad
 				border-radius: $pad
+				padding: 0.3em 0.3em
 				background-color: white
 				color: black
 				cursor: pointer
-		dl
+		.list
 			text-align: left
 			margin: $pad
 			border-radius: 1em
 			padding: $pad
 			background-color: white
-			dt
+			.list-item
 				font-weight: bold
 	&:hover, &.pinned
 		cursor: default
