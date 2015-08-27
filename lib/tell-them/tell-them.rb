@@ -78,11 +78,11 @@ module TellThem
 
   def self.media_queries_flag_html
     return '' unless has_media_queries?
-    flag_div = "<ul>"
+    flag_div = '<div class="media-flags">'
     media_queries.each do |query_data|
-      flag_div += "<span class=\"media-flag #{query_data[:name]}\">#{query_data[:name]}</span>"
+      flag_div += "<span class=\"media-flag #{query_data[:name]}\">#{query_data[:name].titleize}</span>"
     end
-    flag_div += "</ul>"
+    flag_div += '</div>'
   end
 
   class TellThemStore
