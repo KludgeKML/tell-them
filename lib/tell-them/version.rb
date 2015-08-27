@@ -1,5 +1,5 @@
 module TellThem
   module Rails
-    VERSION = "0.1.2"
+    VERSION = "0.1.7"
   end
 end

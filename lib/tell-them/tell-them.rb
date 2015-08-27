@@ -1,4 +1,11 @@
 module TellThem
+
+  MAX_URL_DISPLAY_LENGTH = 60
+
+  def self.reset
+    TellThemStore.instance
+  end
+
   def self.add(data)
     TellThemStore.instance.add(data)
   end
@@ -30,15 +37,16 @@ module TellThem
     box += '      </div>'
     box += '      <button class="pin">Pin</button>'
     box += '    </div>'
-    box += '    <dl class="items">'
+    box += '    <dl class="list">'
     data.each do |k,v|
-      box += "      <dt>#{k}</dt>"
+      box += "      <li><span class=\"list-header\">#{k}: </span>"
       begin
         URI::parse(v)
-        box += "      <dd><a href=\"#{v}\">#{v}</a></dd>"
+        box += "      <span class=\"list-value\"><a href=\"#{v}\">#{shorten(v)}</a></span>"
       rescue URI::InvalidURIError
-        box += "      <dd>#{v}</dd>"
+        box += "      <span class=\"list-header\">#{v}</span>"
       end
+      box += "      </li>"
     end
     box += '    </dl>'
     box += '  </div>'
@@ -46,10 +54,19 @@ module TellThem
     box
   end
 
+  def self.shorten(value)
+    return value if value.length <= MAX_URL_DISPLAY_LENGTH
+    value[0..MAX_URL_DISPLAY_LENGTH] + '...'
+  end
+
   class TellThemStore
     include Singleton
 
     def initialize
+      reset
+    end
+
+    def reset
       @data_store = {}
     end
 
