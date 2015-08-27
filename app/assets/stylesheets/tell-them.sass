@@ -33,6 +33,7 @@ $pad: 2%
 	+positionable-box($pad)
 	z-index: 1000
 	width: 5%
+	min-width: 4em
 	padding-top: 1em
 	cursor: pointer
 	box-shadow: 0.2em 0.2em 1em rgba(128,64,0,0.8)
@@ -83,6 +84,10 @@ $pad: 2%
 					&[data-target-corner="bottom-right"]
 						bottom: 0
 						right: 0
+			.media-flags
+				position: absolute
+				top: 40%
+				right: 45%
 			.pin
 				position: absolute
 				top: 40%
