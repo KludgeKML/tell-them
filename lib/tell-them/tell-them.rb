@@ -32,14 +32,17 @@ module TellThem
   end
 
   def self.html
-    return '' unless has_data? && ::Rails.env.development?
-    box_html.html_safe
+    return '' unless (has_data? || has_media_queries?) && ::Rails.env.development?
+    return ActionController::Base.helpers.stylesheet_link_tag('tell-them') + 
+      box_html.html_safe + 
+      ActionController::Base.helpers.javascript_include_tag('tell-them', async: true)
   end
 
   private
 
   def self.box_html
-    box = media_queries_style_html
+    box = ''
+    box += media_queries_style_html
     box +=  '<div id="tell-them-box">'
     box += '  <div class="contents">'
     box += '    <div class="controls">'
