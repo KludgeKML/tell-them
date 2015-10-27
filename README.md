@@ -43,7 +43,11 @@ You'll need to include the tell-them style file in app/assets/stylesheets/applic
  //= require tell-them
 ```
 
-When all that's done, TellThem is ready to use! Whenever you want to expose internal data from the controller to the developer in the webpage, just add it as one or more key:value pairs using a map:
+When all that's done, TellThem is ready to use!
+
+### Data
+
+Whenever you want to expose internal data from the controller to the developer in the webpage, just add it as one or more key:value pairs using a map:
 
 ```
 TellThem.add(this: 'this is some data!', :'Become Admin' => '/become_admin?source=tell-them')
@@ -55,3 +59,16 @@ This data will now appear in a little pop-up box on the webpage. Note that the p
 * In production/staging/test? No box
 
 If the value of any item will parse as a URI, TellThem will wrap it in a link so that it's clickable.
+
+### Media Indicators
+
+If you would like TellThem to help you debug your breakpoints and responsive behaviour, it can do that too. Using an array of maps, you can enable a set of CSS-styled indicators to appear on the box. Supply a `min` and/or `max` selector to match your breakpoints, and a `name` item that will display in the box header when the specified breakpoint is active. If you also add an `initial` item the ? in the TellThem box will be replaced, so that you don't have to open or pin the box to see the current breakpoint.
+
+```
+TellThem.enable_media_queries([
+  { initial: "M", name: 'mobile', max: '767px' },
+  { initial: "T", name: 'tablet', min: '768px', max: '889px' },
+  { initial: "S", name: 'screen', min: '890px', max: '1249px' },
+  { initial: "W", name: 'wide', min: '1250px' },
+])
+```
