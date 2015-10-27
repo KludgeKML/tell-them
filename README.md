@@ -25,25 +25,13 @@ Or install it yourself as:
 
 ## Usage
 
-You'll need to include the tell-them style file in app/assets/stylesheets/application.scss,
-
-```
- //= require tell-them
-```
-
-...and add a line into your layout (say in apps/views/layouts/application.html.erb) that will insert the necessary HTML:
+You'll need to add a line into your layout (say in apps/views/layouts/application.html.erb) that will insert the necessary HTML, along with JS and CSS links (I've assumed that because this is development only, JS and CSS pipeline optimisation is probably unnecessary):
 
 ```
 <%= TellThem.html %>
 ```
 
-[OPTIONAL] add the script files in app/assets/javascripts/application.js (TellThem doesn't need the javascript to work, but it enables a few nice features like saved prefs, choosing the position of the pop-up debugging box and allowing you to pin it open)
-
-```
- //= require tell-them
-```
-
-When all that's done, TellThem is ready to use!
+Once that's done, TellThem is ready to use! 
 
 ### Data
 
