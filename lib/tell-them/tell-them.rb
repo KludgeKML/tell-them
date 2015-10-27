@@ -87,7 +87,10 @@ module TellThem
       style_box += "(min-width: #{query_data[:min]}) " if query_data[:min]
       style_box += ' and ' if query_data[:min] && query_data[:max]
       style_box += "(max-width: #{query_data[:max]}) " if query_data[:max]
-      style_box += "{ \#tell-them-box .#{query_data[:name]} { display: block; } } \n"
+      style_box += "{ \n"
+      style_box += "  \#tell-them-box:before { content: \"#{query_data[:initial]}\"; }\n" if query_data[:initial]
+      style_box += "  \#tell-them-box .#{query_data[:name]} { display: block; }\n"
+      style_box += " } \n"
     end
     style_box += "</style>"
   end
