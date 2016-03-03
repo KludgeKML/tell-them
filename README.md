@@ -60,3 +60,16 @@ TellThem.enable_media_queries([
   { initial: "W", name: 'wide', min: '1250px' },
 ])
 ```
+
+### Grid overlays
+
+If you would like TellThem to help you debug grid layout as well, you can add column count, width, and spacing to the media query block. It will add a "Grid" button to the controls to toggle grid visibility, or in non-js land the grid will always be visible.
+
+```
+TellThem.enable_media_queries([
+  { initial: "M", name: 'mobile', max: '767px', columns: 1 },
+  { initial: "T", name: 'tablet', min: '768px', max: '889px', columns: 18, column-width: '20px', column-space: '15px' },
+  { initial: "S", name: 'screen', min: '890px', max: '1249px', columns: 24, column-width: '20px', column-space: '15px' },
+  { initial: "W", name: 'wide', min: '1250px', columns: 36, column-width: '20px', column-space: '15px' },
+])
+```

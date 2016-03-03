@@ -69,6 +69,13 @@ module TellThem
     end
     box += '    </dl>'
     box += '  </div>'
+    box += '  <div id="grid-overlay">'
+    box += '    <div class="grid-contents">'
+    box += '       <div class="grid-column"></div>'
+    box += '       <div class="grid-space"></div>'
+    box += '       <div class="grid-column"></div>'
+    box += '    </div>'
+    box += '  </div>'
     box += '</div>'
     box
   end
