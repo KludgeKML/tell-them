@@ -53,6 +53,7 @@ module TellThem
     box += '        <button class="current" data-target-corner="bottom-right"></button>'
     box += '      </div>'
     box += media_queries_flag_html
+    box += '      <button class="grid">Grid</button>'
     box += '      <button class="pin">Pin</button>'
     box += '    </div>'
     box += '    <dl class="list">'
