@@ -20,11 +20,9 @@ save_prefs = ->
   grid_value = 0
   if $('#tell-them-box').hasClass('grid')
     grid_value = 1
-  prefs = {
+  prefs =
   	corner: $('#tell-them-box .controls .corners button.current').data('target-corner'),
   	pinned: pin_value,
-    grid: grid_value
-  }
   localStorage.setItem("tellThemPrefs", JSON.stringify(prefs))
 
 change_corners = (e) ->
