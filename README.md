@@ -67,9 +67,9 @@ If you would like TellThem to help you debug grid layout as well, you can add co
 
 ```
 TellThem.enable_media_queries([
-  { initial: "M", name: 'mobile', max: '767px', columns: 1 },
-  { initial: "T", name: 'tablet', min: '768px', max: '889px', columns: 18, column-width: '20px', column-space: '15px' },
-  { initial: "S", name: 'screen', min: '890px', max: '1249px', columns: 24, column-width: '20px', column-space: '15px' },
-  { initial: "W", name: 'wide', min: '1250px', columns: 36, column-width: '20px', column-space: '15px' },
+  { initial: "M", name: 'mobile', max: '767px', columns: 1, margins: '20px' },
+  { initial: "T", name: 'tablet', min: '768px', max: '889px', columns: 18, column_width: '20px', column_space: '15px' },
+  { initial: "S", name: 'screen', min: '890px', max: '1249px', columns: 24, column_width: '20px', column_space: '15px' },
+  { initial: "W", name: 'wide', min: '1250px', columns: 36, column_width: '20px', column_space: '15px' },
 ])
 ```

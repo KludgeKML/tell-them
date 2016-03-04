@@ -27,8 +27,16 @@ module TellThem
     TellThemStore.instance.has_media_queries?
   end
 
+  def self.has_media_grid_info?
+    TellThemStore.instance.has_media_grid_info?
+  end
+
   def self.media_queries
     TellThemStore.instance.media_queries
+  end
+
+  def self.media_grid_max_columns
+    TellThemStore.instance.media_grid_max_columns
   end
 
   def self.html
@@ -69,13 +77,7 @@ module TellThem
     end
     box += '    </dl>'
     box += '  </div>'
-    box += '  <div id="grid-overlay">'
-    box += '    <div class="grid-content">'
-    box += '       <div class="grid-column"></div>'
-    box += '       <div class="grid-space"></div>'
-    box += '       <div class="grid-column"></div>'
-    box += '    </div>'
-    box += '  </div>'
+    box += media_grid_html
     box += '</div>'
     box
   end
@@ -98,6 +100,7 @@ module TellThem
       style_box += "{ \n"
       style_box += "  \#tell-them-box:before { content: \"#{query_data[:initial]}\"; }\n" if query_data[:initial]
       style_box += "  \#tell-them-box .#{query_data[:name]} { display: block; }\n"
+      style_box += media_grid_css(query_data)
       style_box += " } \n"
     end
     style_box += "</style>"
@@ -111,6 +114,47 @@ module TellThem
     end
     flag_div += '</div>'
   end
+
+  def self.media_grid_html
+    return '' unless has_media_grid_info?
+    column_array = make_column_array
+    grid_box =  '  <div id="grid-overlay">'
+    grid_box += '    <div class="grid-content">'
+    (1...media_grid_max_columns).each do |c|
+      grid_box += '       <div class="grid-column #{validity-string(column_array, c)}"></div>'
+      grid_box += '       <div class="grid-space #{validity-string(column_array, c)}"></div>'
+    end
+    grid_box += '       <div class="grid-column #{validity-string(column_array)}"></div>'
+    grid_box += '    </div>'
+    grid_box += '  </div>'
+  end
+
+  def self.validity_string(column_array, columns = nil)
+    validity_string = ""
+    column_array.each { |c| validity_string += "valid-for-#{c} " if columns.nil? || c >= columns }
+    validity_string
+  end
+
+  def self.column_array
+    array = []
+    media_queries.each { |mq| array << mq[:columns] }
+    array
+  end
+
+  def self.media_grid_css(query_data)
+    return '' unless has_media_grid_info?
+    grid_css =  "  \#tell-them-box .grid-content .grid-column { display: none; }\n"
+    grid_css += "  \#tell-them-box .grid-content .grid-space { display: none; }\n"
+    grid_css += "  \#tell-them-box .grid-content { margin-top: #{query_data[:margin_top]}; }\n" if query_data.has_key?(:margin_top)
+
+    if query_data[:columns] == 1
+      grid_css = "  \#tell-them-box .grid-content .grid-column.valid-for-1 { display: inline-block; width: 100%; margins 0 #{query_data[:margins]} }\n"
+    else
+      grid_css = "  \#tell-them-box .grid-content .grid-column.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_width]} }\n"
+      grid_css = "  \#tell-them-box .grid-content .grid-space.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_space]} }\n"
+    end
+  end
+
 
   class TellThemStore
     include Singleton
@@ -144,8 +188,24 @@ module TellThem
       @media_queries.any?
     end
 
+    def has_media_grid_info?
+      return false unless has_media_queries?
+      @media_queries.each do |mq|
+        next unless mq.has_key?(:columns)
+        return true if mq[:columns] == 1 && mq.has_key?(:margins)
+        return true if mq[:columns] > 1 && mq.has_key?(:column_width) && mq.has_key?(:column_space)
+      end
+      false
+    end
+
     def media_queries
       @media_queries
+    end
+
+    def media_grid_max_columns
+      columns = 0
+      media_queries.each { |mq| columns = [columns, mq[:columns]].max }
+      columns
     end
   end
 end
