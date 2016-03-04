@@ -117,15 +117,15 @@ module TellThem
 
   def self.media_grid_html
     return '' unless has_media_grid_info?
-    grid_box =  '  <div id="grid-overlay">'
-    grid_box += '    <div class="grid-content">'
+    grid_box =  '  <div id="grid-overlay">' + "\n"
+    grid_box += '    <div class="grid-content">' + "\n"
     (1...media_grid_max_columns).each do |c|
-      grid_box += '       <div class="grid-column #{validity-string(c)}"></div>'
-      grid_box += '       <div class="grid-space #{validity-string(c)}"></div>'
+      grid_box += "       <div class=\"grid-column #{validity-string(c)}\"></div>" + "\n"
+      grid_box += "       <div class=\"grid-space #{validity-string(c)}\"></div>" + "\n"
     end
-    grid_box += '       <div class="grid-column #{validity-string}"></div>'
-    grid_box += '    </div>'
-    grid_box += '  </div>'
+    grid_box += "       <div class=\"grid-column #{validity-string}\"></div>" + "\n"
+    grid_box += '    </div>' + "\n"
+    grid_box += '  </div>' + "\n"
   end
 
   def self.validity_string(columns = nil)
@@ -147,10 +147,10 @@ module TellThem
     grid_css += "  \#tell-them-box .grid-content { margin-top: #{query_data[:margin_top]}; }\n" if query_data.has_key?(:margin_top)
 
     if query_data[:columns] == 1
-      grid_css = "  \#tell-them-box .grid-content .grid-column.valid-for-1 { display: inline-block; width: 100%; margins 0 #{query_data[:margins]} }\n"
+      grid_css += "  \#tell-them-box .grid-content .grid-column.valid-for-1 { display: inline-block; width: 100%; margins 0 #{query_data[:margins]} }\n"
     else
-      grid_css = "  \#tell-them-box .grid-content .grid-column.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_width]} }\n"
-      grid_css = "  \#tell-them-box .grid-content .grid-space.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_space]} }\n"
+      grid_css += "  \#tell-them-box .grid-content .grid-column.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_width]} }\n"
+      grid_css += "  \#tell-them-box .grid-content .grid-space.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_space]} }\n"
     end
   end
 
