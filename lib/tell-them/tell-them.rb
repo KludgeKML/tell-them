@@ -117,19 +117,18 @@ module TellThem
 
   def self.media_grid_html
     return '' unless has_media_grid_info?
-    column_array = make_column_array
     grid_box =  '  <div id="grid-overlay">'
     grid_box += '    <div class="grid-content">'
     (1...media_grid_max_columns).each do |c|
-      grid_box += '       <div class="grid-column #{validity-string(column_array, c)}"></div>'
-      grid_box += '       <div class="grid-space #{validity-string(column_array, c)}"></div>'
+      grid_box += '       <div class="grid-column #{validity-string(c)}"></div>'
+      grid_box += '       <div class="grid-space #{validity-string(c)}"></div>'
     end
-    grid_box += '       <div class="grid-column #{validity-string(column_array)}"></div>'
+    grid_box += '       <div class="grid-column #{validity-string}"></div>'
     grid_box += '    </div>'
     grid_box += '  </div>'
   end
 
-  def self.validity_string(column_array, columns = nil)
+  def self.validity_string(columns = nil)
     validity_string = ""
     column_array.each { |c| validity_string += "valid-for-#{c} " if columns.nil? || c >= columns }
     validity_string
