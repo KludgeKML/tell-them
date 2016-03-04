@@ -5,9 +5,9 @@ load_prefs = ->
   if prefs.pinned == 1
   	$('#tell-them-box').addClass('pinned')
   	$('#tell-them-box .controls .pin').text('Unpin')
-  $('#tell-them-box').removeClass('grid')
+  $('#tell-them-box').removeClass('grid-on')
   if prefs.grid == 1
-    $('#tell-them-box').addClass('grid')
+    $('#tell-them-box').addClass('grid-on')
     $('#tell-them-box .controls .pin').text('No Grid')
   $('#tell-them-box').addClass(prefs.corner)
   $('#tell-them-box .controls .corners button').removeClass('current')
@@ -18,7 +18,7 @@ save_prefs = ->
   if $('#tell-them-box').hasClass('pinned')
   	pin_value = 1
   grid_value = 0
-  if $('#tell-them-box').hasClass('grid')
+  if $('#tell-them-box').hasClass('grid-on')
     grid_value = 1
   prefs =
   	corner: $('#tell-them-box .controls .corners button.current').data('target-corner'),
@@ -41,8 +41,8 @@ toggle_pin = (e) ->
   save_prefs()
 
 toggle_grid = (e) ->
-  $('#tell-them-box').toggleClass('grid')
-  if $('#tell-them-box').hasClass('grid')
+  $('#tell-them-box').toggleClass('grid-on')
+  if $('#tell-them-box').hasClass('grid-on')
     $('#tell-them-box .controls .grid').text('No Grid')
   else
     $('#tell-them-box .controls .grid').text('Grid')

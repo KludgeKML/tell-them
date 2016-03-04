@@ -144,7 +144,7 @@ module TellThem
     return '' unless has_media_grid_info?
     grid_css =  "  \#grid-overlay .grid-content .grid-column { display: none !important; }\n"
     grid_css += "  \#grid-overlay .grid-content .grid-space { display: none !important; }\n"
-    grid_css += "  \#grid-overlay .grid-content { margin-top: #{query_data[:margin_top]}; }\n" if query_data.has_key?(:margin_top)
+    grid_css += "  \#grid-overlay .grid-content { margin-top: #{query_data[:margin_top]} !important; }\n" if query_data.has_key?(:margin_top)
 
     if query_data[:columns] == 1
       grid_css += "  \#grid-overlay .grid-content { margin-left: #{query_data[:margins]} !important; margin-right: #{query_data[:margins]} !important }\n"
