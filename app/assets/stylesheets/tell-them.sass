@@ -1,3 +1,5 @@
+@import 'grid-overlay'
+
 =positionable-box($distance)
 	position: fixed
 	bottom: $distance
@@ -88,15 +90,18 @@ $pad: 2%
 				position: absolute
 				top: 40%
 				right: 45%
-			.pin
+			.grid, .pin
 				position: absolute
 				top: 40%
-				right: $pad
 				border-radius: $pad
 				padding: 0.3em 0.3em
 				background-color: white
 				color: black
 				cursor: pointer
+			.grid
+				right: $pad + 10%
+			.pin
+				right: $pad
 		.list
 			margin: $pad
 			border-radius: 1em
@@ -119,5 +124,11 @@ $pad: 2%
 		.contents
 			.controls
 				.pin
+					background-color: black
+					color: white
+	&.grid-on
+		.contents
+			.controls
+				.grid
 					background-color: black
 					color: white
