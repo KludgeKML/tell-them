@@ -120,10 +120,10 @@ module TellThem
     grid_box =  '  <div id="grid-overlay">' + "\n"
     grid_box += '    <div class="grid-content">' + "\n"
     (1...media_grid_max_columns).each do |c|
-      grid_box += "       <div class=\"grid-column #{validity-string(c)}\"></div>" + "\n"
-      grid_box += "       <div class=\"grid-space #{validity-string(c)}\"></div>" + "\n"
+      grid_box += "       <div class=\"grid-column #{validity_string(c)}\"></div>" + "\n"
+      grid_box += "       <div class=\"grid-space #{validity_string(c)}\"></div>" + "\n"
     end
-    grid_box += "       <div class=\"grid-column #{validity-string}\"></div>" + "\n"
+    grid_box += "       <div class=\"grid-column #{validity_string}\"></div>" + "\n"
     grid_box += '    </div>' + "\n"
     grid_box += '  </div>' + "\n"
   end
