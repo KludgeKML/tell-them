@@ -147,8 +147,14 @@ module TellThem
     grid_css += "  \#grid-overlay .grid-content { margin-top: #{query_data[:margin_top]}; }\n" if query_data.has_key?(:margin_top)
 
     if query_data[:columns] == 1
-      grid_css += "  \#grid-overlay .grid-content .grid-column.valid-for-1 { display: inline-block; width: 100%; margins 0 #{query_data[:margins]} }\n"
+      grid_css += "  \#grid-overlay .grid-content { width: 100%; margin-left: #{query_data[:margins]}; margin-right: #{query_data[:margins]} }\n"
+      grid_css += "  \#grid-overlay .grid-content .grid-column.valid-for-1 { display: inline-block; width: 100%; }\n"
     else
+      units = query_data[:column_width].gsub(/[0-9]/,'')
+      total_c_width = query_data[:column_width].gsub(units,'').to_i * query_data[:columns]
+      total_s_width = query_data[:column_space].gsub(units,'').to_i * (query_data[:columns] - 1)
+      total_width = (total_c_width + total_s_width).to_s + units
+      grid_css += "  \#grid-overlay .grid-content { width: #{total_width}; margin-left: auto; margin-right: auto }\n"
       grid_css += "  \#grid-overlay .grid-content .grid-column.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_width]} }\n"
       grid_css += "  \#grid-overlay .grid-content .grid-space.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_space]} }\n"
     end
