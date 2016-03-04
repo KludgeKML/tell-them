@@ -154,7 +154,7 @@ module TellThem
       total_c_width = query_data[:column_width].gsub(units,'').to_i * query_data[:columns]
       total_s_width = query_data[:column_space].gsub(units,'').to_i * (query_data[:columns] - 1)
       total_width = (total_c_width + total_s_width).to_s + units
-      grid_css += "  \#grid-overlay .grid-content { width: #{total_width}\n"
+      grid_css += "  \#grid-overlay .grid-content { width: #{total_width}; }\n"
       grid_css += "  \#grid-overlay .grid-content .grid-column.valid-for-#{query_data[:columns]} { display: inline-block !important; width: #{query_data[:column_width]} }\n"
       grid_css += "  \#grid-overlay .grid-content .grid-space.valid-for-#{query_data[:columns]} { display: inline-block !important; width: #{query_data[:column_space]} }\n"
     end
