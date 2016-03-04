@@ -77,8 +77,8 @@ module TellThem
     end
     box += '    </dl>'
     box += '  </div>'
-    box += media_grid_html
     box += '</div>'
+    box += media_grid_html
     box
   end
 
@@ -142,15 +142,15 @@ module TellThem
 
   def self.media_grid_css(query_data)
     return '' unless has_media_grid_info?
-    grid_css =  "  \#tell-them-box .grid-content .grid-column { display: none; }\n"
-    grid_css += "  \#tell-them-box .grid-content .grid-space { display: none; }\n"
-    grid_css += "  \#tell-them-box .grid-content { margin-top: #{query_data[:margin_top]}; }\n" if query_data.has_key?(:margin_top)
+    grid_css =  "  \#grid-overlay .grid-content .grid-column { display: none; }\n"
+    grid_css += "  \#grid-overlay .grid-content .grid-space { display: none; }\n"
+    grid_css += "  \#grid-overlay .grid-content { margin-top: #{query_data[:margin_top]}; }\n" if query_data.has_key?(:margin_top)
 
     if query_data[:columns] == 1
-      grid_css += "  \#tell-them-box .grid-content .grid-column.valid-for-1 { display: inline-block; width: 100%; margins 0 #{query_data[:margins]} }\n"
+      grid_css += "  \#grid-overlay .grid-content .grid-column.valid-for-1 { display: inline-block; width: 100%; margins 0 #{query_data[:margins]} }\n"
     else
-      grid_css += "  \#tell-them-box .grid-content .grid-column.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_width]} }\n"
-      grid_css += "  \#tell-them-box .grid-content .grid-space.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_space]} }\n"
+      grid_css += "  \#grid-overlay .grid-content .grid-column.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_width]} }\n"
+      grid_css += "  \#grid-overlay .grid-content .grid-space.valid-for-#{query_data[:columns]} { display: inline-block; width: #{query_data[:column_space]} }\n"
     end
   end
 
