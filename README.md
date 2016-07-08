@@ -5,7 +5,7 @@
 >
 > -- <cite>Bender, Futurama</cite>
 
-https://codeship.com/projects/2c9e0330-a5b1-0133-6fff-32246323bc54/status?branch=master
+![Codeship Badge](https://codeship.com/projects/2c9e0330-a5b1-0133-6fff-32246323bc54/status?branch=master)
 
 TellThem is a drop-in development aid for rails that puts a nice hovering box over any page which you want to provide debug information for.
 
